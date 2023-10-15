@@ -33,6 +33,16 @@ EOBUNDLES
 # Apply changes
 antigen apply
 
+## History command configuration
+HISTSIZE=5000                 # How many lines of history to keep in memory
+HISTFILE=~/.zsh_history       # Where to save history to disk
+SAVEHIST=5000                 # Number of history entries to save to disk
+setopt hist_expire_dups_first # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_ignore_dups       # ignore duplicated commands history list
+setopt hist_ignore_space      # ignore commands that start with space
+setopt hist_verify            # show command with history expansion to user before running it
+setopt share_history          # share command history data
+
 # If you come from bash you might have to change your /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin.
 export PATH=/home/modem7//bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
@@ -48,8 +58,14 @@ alias dcprune="docker system prune -af --volumes"
 # alias gpull="(cd /home/modem7/Docker && git pull)"
 # alias bwu='export BW_SESSION="" && bw sync -f'
 
-bindkey "^[[H" beginning-of-line
-bindkey "^[[F" end-of-line
+bindkey '\e[1~'   beginning-of-line  # Linux console
+bindkey '\e[H'    beginning-of-line  # xterm
+bindkey '\eOH'    beginning-of-line  # gnome-terminal
+bindkey '\e[2~'   overwrite-mode     # Linux console, xterm, gnome-terminal
+bindkey '\e[3~'   delete-char        # Linux console, xterm, gnome-terminal
+bindkey '\e[4~'   end-of-line        # Linux console
+bindkey '\e[F'    end-of-line        # xterm
+bindkey '\eOF'    end-of-line        # gnome-terminal
 
 # Bitwarden completion
 # eval "; compdef _bw bw;"
