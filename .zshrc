@@ -22,6 +22,7 @@ antigen bundles <<EOBUNDLES
   history
   sobolevn/wakatime-zsh-plugin
   sudo
+  ubuntu
   zsh-users/zsh-autosuggestions
   zsh-users/zsh-completions
   zsh-users/zsh-syntax-highlighting
