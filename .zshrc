@@ -51,7 +51,7 @@ export PATH=/home/modem7//bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr
 zstyle ':omz:update' mode auto      # update automatically without asking
 
 alias zshconfig="nano ~/.zshrc"
-alias zshupdate="omz update && antigen update"
+alias zshupdate="antigen update && omz update"
 # alias dcup="docker compose --project-directory /mnt/docker/VM/TdarrNode1 up -d --remove-orphans --timestamps"
 # alias dcdown="docker compose --project-directory /mnt/docker/VM/TdarrNode1 down"
 # alias dcpull="docker compose --project-directory /mnt/docker/VM/TdarrNode1 pull"
