@@ -42,7 +42,7 @@ antidote bundle <<EOBUNDLES
   ohmyzsh/ohmyzsh path:plugins/sudo
   ohmyzsh/ohmyzsh path:plugins/ubuntu
   ohmyzsh/ohmyzsh path:plugins/zoxide
-  sobolevn/wakatime-zsh-plugin
+  # sobolevn/wakatime-zsh-plugin
   belak/zsh-utils path:completion
   belak/zsh-utils path:prompt
   belak/zsh-utils path:utility
