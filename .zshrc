@@ -105,10 +105,8 @@ alias dcprune="docker system prune -af --volumes"
 alias ll='eza --long --all --group-directories-first -gh --git --git-repos --total-size'
 
 # Bitwarden completion
-# eval "; compdef _bw bw;"
+# eval "$(bw completion --shell zsh); compdef _bw bw;"
 
-#bindkey "^[[H" beginning-of-line
-#bindkey "^[[F" end-of-line
 # create a zkbd compatible hash;
 # to add other keys to this hash, see: man 5 terminfo
 # If you come from bash you might have to change your /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin.
