@@ -22,6 +22,10 @@ then
     echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
     sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
     sudo apt update && sudo apt install -y eza
+    
+    echo "Merging Bash history with ZSH history"
+    cd ~
+    sort ~/.bash_history | uniq | awk '{print ": :0:;"$0}' >> ~/.zsh_history
 
     echo "Removing .zshenv file"
     rm $HOME/.zshenv
