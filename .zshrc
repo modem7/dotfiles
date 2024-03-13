@@ -83,10 +83,6 @@ zstyle ':completion:*' special-dirs false
 # show hidden files in completion
 setopt glob_dots
 
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets cursor root line)
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#4e4e4e"
-ZSH_HIGHLIGHT_STYLES[cursor]='bg=#4e4e4e'
-
 export FZF_DEFAULT_COMMAND='rg --no-messages --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS="--no-separator --layout=reverse --inline-info"
 # zoxide directory preview options
