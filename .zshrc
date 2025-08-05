@@ -85,14 +85,12 @@ setopt glob_dots
 # Aliases
 alias zshconfig="nano ~/.zshrc"
 alias zshupdate="antidote update"
-alias fzfupdate="cd ~/.fzf && git pull && ./install --all"
 # alias dcup="docker compose --project-directory /mnt/docker/VM/TdarrNode1 up -d --remove-orphans --timestamps"
 # alias dcdown="docker compose --project-directory /mnt/docker/VM/TdarrNode1 down"
 # alias dcpull="docker compose --project-directory /mnt/docker/VM/TdarrNode1 pull"
 alias dcprune="docker system prune -af --volumes"
 # alias gpull="(cd /home/modem7/Docker && git pull)"
 # alias bwu='export BW_SESSION="" && bw sync -f'
-alias ll='eza --long --all --group-directories-first -gh --git --git-repos --total-size'
 
 # Bitwarden completion
 # eval "$(bw completion --shell zsh); compdef _bw bw;"
