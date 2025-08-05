@@ -30,6 +30,7 @@ source <(antidote init)
 # Set plugins (plugins not part of Oh-My-Zsh can be installed using githubusername/repo)
 antidote bundle <<EOBUNDLES
   # Oh-My-Zsh
+  getantidote/use-omz
   ohmyzsh/ohmyzsh path:lib
   romkatv/powerlevel10k
 
