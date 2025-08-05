@@ -42,12 +42,10 @@ antidote bundle <<EOBUNDLES
   ohmyzsh/ohmyzsh path:plugins/history
   ohmyzsh/ohmyzsh path:plugins/sudo
   ohmyzsh/ohmyzsh path:plugins/ubuntu
-  ohmyzsh/ohmyzsh path:plugins/zoxide
   # sobolevn/wakatime-zsh-plugin
   belak/zsh-utils path:completion
   belak/zsh-utils path:prompt
   belak/zsh-utils path:utility
-  Aloxaf/fzf-tab
   zsh-users/zsh-autosuggestions
   zsh-users/zsh-completions
   zsh-users/zsh-syntax-highlighting
@@ -83,11 +81,6 @@ zstyle ':fzf-tab:*' switch-group ',' '.'
 zstyle ':completion:*' special-dirs false
 # show hidden files in completion
 setopt glob_dots
-
-export FZF_DEFAULT_COMMAND='rg --no-messages --files --no-ignore --hidden --follow --glob "!.git/*"'
-export FZF_DEFAULT_OPTS="--no-separator --layout=reverse --inline-info"
-# zoxide directory preview options
-export _ZO_FZF_OPTS="--no-sort --keep-right --height=50% --info=inline --layout=reverse --exit-0 --select-1 --bind=ctrl-z:ignore --preview='\command eza --long --all {2..}' --preview-window=right"
 
 # Aliases
 alias zshconfig="nano ~/.zshrc"
@@ -154,6 +147,3 @@ autoload -Uz compinit -C
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# fzf autocompletion
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
