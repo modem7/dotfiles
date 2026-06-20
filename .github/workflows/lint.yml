@@ -1,0 +1,31 @@
+# .github/workflows/lint.yml
+name: Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  zsh-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: zshellcheck
+        uses: afadesigns/zshellcheck@v1.0.17
+        with:
+          args: -format sarif -severity warning .zshrc .zshenv > zshellcheck.sarif
+
+      - name: Upload SARIF
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: zshellcheck.sarif
+
+      - name: shellcheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: '.'
+          severity: warning
+          additional_files: '.zshrc .zshenv .zsh_plugins.txt'
