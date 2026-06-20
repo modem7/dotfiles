@@ -12,7 +12,7 @@ Personal zsh configuration for Debian/Ubuntu-based machines. Designed for platfo
 
 - **[Powerlevel10k](https://github.com/romkatv/powerlevel10k)** prompt with instant prompt enabled
 - **[antidote](https://github.com/mattmc3/antidote)** plugin manager in static mode — fast startup, no deprecation warnings
-- **One-shot bootstrap** via `.zshenv` — drop it in `~` and `exec zsh` to set up a new machine
+- **One-shot bootstrap** via `.zshenv` — drop it in `~`, run `zsh`, and everything is configured automatically
 - **Per-machine overrides** via `~/.zshenv.local` — keeps machine-specific config out of the repo
 - History tuned for multi-session use: 100k entries, file locking, cross-session sharing
 - Sensible completion, syntax highlighting, and autosuggestions out of the box
@@ -21,27 +21,40 @@ Personal zsh configuration for Debian/Ubuntu-based machines. Designed for platfo
 
 | File | Purpose |
 |---|---|
-| `.zshenv` | One-shot bootstrap — fetches dotfiles, installs WakaTime, merges bash history |
+| `.zshenv` | One-shot bootstrap — checks prerequisites, fetches dotfiles, installs WakaTime, merges bash history, sets zsh as default shell |
 | `.zshrc` | Main shell config — plugins, history, keybindings, aliases |
 | `.zsh_plugins.txt` | antidote static plugin list |
 | `.p10k.zsh` | Powerlevel10k prompt configuration |
 
 ## Bootstrap
 
-On a fresh machine (zsh already installed):
+On a fresh machine:
 
-```zsh
-wget -q -O ~/.zshenv https://raw.githubusercontent.com/modem7/dotfiles/master/.zshenv
-exec zsh
+```bash
+wget -q -O ~/.zshenv https://raw.githubusercontent.com/modem7/dotfiles/master/.zshenv && zsh
 ```
 
+> No need to install zsh first — the bootstrap will check for it and tell you exactly what's missing.
+
 The bootstrap will:
-1. Fetch `.zshrc`, `.zsh_plugins.txt`, and `.p10k.zsh` from this repo
-2. Install the WakaTime CLI
-3. Merge any existing bash history into zsh history
-4. Leave a sentinel file (`~/.zshenv_bootstrapped`) so it never runs again
+1. Verify all prerequisites are installed (`zsh`, `git`, `python3`, `wget`)
+2. Fetch `.zshrc`, `.zsh_plugins.txt`, and `.p10k.zsh` from this repo
+3. Install the WakaTime CLI
+4. Merge any existing bash history into zsh history
+5. Set zsh as your default shell via `chsh`
+6. Leave a sentinel file (`~/.zshenv_bootstrapped`) so it never runs again
 
 > **Note:** WakaTime API key is not included. Set it manually in `~/.wakatime.cfg` after first login.
+
+### Prerequisites
+
+The bootstrap checks for these automatically and exits with a clear error if any are missing:
+
+```bash
+sudo apt-get install -y zsh git python3 wget
+```
+
+Optional tools with graceful degradation if absent: `pipx`, `bw` (Bitwarden CLI).
 
 ## Per-machine configuration
 
@@ -95,15 +108,6 @@ Managed via antidote static mode. The bundle is only regenerated when `.zsh_plug
 | `dcpull` *(commented)* | `docker compose pull` |
 | `dive` | Run [dive](https://github.com/wagoodman/dive) via Docker |
 | `bwu` *(commented)* | Unlock Bitwarden and sync |
-
-## Requirements
-
-- zsh
-- git
-- python3 (for WakaTime bootstrap)
-- wget
-
-Optional tools with graceful degradation if absent: `pipx`, `bw` (Bitwarden CLI).
 
 ## License
 

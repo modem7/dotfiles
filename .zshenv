@@ -48,7 +48,20 @@ if [[ ! -f "$_BOOTSTRAP_SENTINEL" ]]; then
     sort ~/.bash_history | uniq | awk '{print ": :0:;"$0}' >> ~/.zsh_history
   fi
 
-  # 5. Mark bootstrap as complete
+  # 5. Set zsh as default shell
+  echo ">>> Setting zsh as default shell..."
+  if [[ "$SHELL" != "$(which zsh)" ]]; then
+    if chsh -s "$(which zsh)"; then
+      echo "    Default shell changed to zsh — takes effect on next login."
+    else
+      echo "    Could not change shell automatically."
+      echo "    Run manually: chsh -s \$(which zsh)"
+    fi
+  else
+    echo "    zsh is already the default shell."
+  fi
+
+  # 6. Mark bootstrap as complete
   touch "$_BOOTSTRAP_SENTINEL"
   echo "=== Bootstrap complete! ==="
   echo "    Remember to add your WakaTime API key to ~/.wakatime.cfg"
