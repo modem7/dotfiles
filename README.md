@@ -1,5 +1,11 @@
 # dotfiles
 
+[![Lint](https://github.com/modem7/dotfiles/actions/workflows/lint.yml/badge.svg)](https://github.com/modem7/dotfiles/actions/workflows/lint.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/modem7/dotfiles/blob/master/LICENSE)
+[![Zsh](https://img.shields.io/badge/shell-zsh-89e051.svg)](https://www.zsh.org/)
+[![antidote](https://img.shields.io/badge/plugins-antidote-blue.svg)](https://github.com/mattmc3/antidote)
+[![Powerlevel10k](https://img.shields.io/badge/prompt-powerlevel10k-blueviolet.svg)](https://github.com/romkatv/powerlevel10k)
+
 Personal zsh configuration for Debian/Ubuntu-based machines. Designed for platform engineering workflows — Docker, systemd, git, and SSH-heavy environments.
 
 ## Features
@@ -83,12 +89,12 @@ Managed via antidote static mode. The bundle is only regenerated when `.zsh_plug
 |---|---|
 | `zshconfig` | Open `.zshrc` in nano |
 | `zshupdate` | Update all antidote plugins |
-| `dcup` | `docker compose up -d --remove-orphans` (uses `$DC_PROJECT_DIR`) |
-| `dcdown` | `docker compose down` |
-| `dcpull` | `docker compose pull` |
 | `dcprune` | `docker system prune -af --volumes` |
-| `dive` | Run [dive](https://github.com/wagoodman/dive) via Docker |
-| `bwu` | Unlock Bitwarden and sync |
+| `dcup` *(commented)* | `docker compose up -d --remove-orphans` (uses `$DC_PROJECT_DIR`) |
+| `dcdown` *(commented)* | `docker compose down` |
+| `dcpull` *(commented)* | `docker compose pull` |
+| `dive` *(commented)* | Run [dive](https://github.com/wagoodman/dive) via Docker |
+| `bwu` *(commented)* | Unlock Bitwarden and sync |
 
 ## Requirements
 
