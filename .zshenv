@@ -12,9 +12,25 @@ _BOOTSTRAP_SENTINEL="$HOME/.zshenv_bootstrapped"
 if [[ ! -f "$_BOOTSTRAP_SENTINEL" ]]; then
   echo "=== Bootstrap: starting zsh setup ==="
 
+  # 0. Check prerequisites
+  echo ">>> Checking prerequisites..."
+  _missing=()
+  for _cmd in zsh git python3 wget; do
+    if ! command -v "$_cmd" &>/dev/null; then
+      _missing+=("$_cmd")
+    fi
+  done
+  if [[ ${#_missing[@]} -gt 0 ]]; then
+    echo "ERROR: Missing required packages: ${_missing[*]}"
+    echo "       Please install them and try again:"
+    echo "       sudo apt-get install -y ${_missing[*]}"
+    return 1
+  fi
+  echo ">>> Prerequisites OK"
+
   # 1. Fetch dotfiles
   echo ">>> Fetching dotfiles..."
-  local _dotfiles_base="https://raw.githubusercontent.com/modem7/dotfiles/master"
+  _dotfiles_base="https://raw.githubusercontent.com/modem7/dotfiles/master"
   wget -q -O ~/.zshrc            "${_dotfiles_base}/.zshrc"
   wget -q -O ~/.zsh_plugins.txt  "${_dotfiles_base}/.zsh_plugins.txt"
   wget -q -O ~/.p10k.zsh         "${_dotfiles_base}/.p10k.zsh"
@@ -23,7 +39,7 @@ if [[ ! -f "$_BOOTSTRAP_SENTINEL" ]]; then
   echo ">>> Installing WakaTime..."
   python3 -c "$(wget -q -O - https://raw.githubusercontent.com/wakatime/vim-wakatime/master/scripts/install_cli.py)"
 
-  # 3. Enable WakaTime plugin in .zshrc (uncomment the sobolevn line)
+  # 3. Enable WakaTime plugin in .zsh_plugins.txt (uncomment the sobolevn line)
   sed -i 's/^# sobolevn\/wakatime-zsh-plugin/sobolevn\/wakatime-zsh-plugin/' ~/.zsh_plugins.txt
 
   # 4. Merge bash history into zsh history
