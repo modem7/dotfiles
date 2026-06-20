@@ -1,0 +1,36 @@
+name: Update README plugins table
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - .zsh_plugins.txt
+      - scripts/update_plugins_readme.py
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      models: read  # required for GitHub Models access
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Regenerate plugins table
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/update_plugins_readme.py
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git diff --quiet README.md scripts/plugin_descriptions.json 2>/dev/null && echo "No changes." && exit 0
+          git add README.md scripts/plugin_descriptions.json
+          git commit -m "docs: update plugins table from .zsh_plugins.txt [skip ci]"
+          git push

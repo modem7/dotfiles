@@ -1,0 +1,21 @@
+{
+  "MichaelAquilina/zsh-you-should-use": "Reminds you when an alias exists for a typed command",
+  "belak/zsh-utils path:completion": "Additional completion utilities",
+  "belak/zsh-utils path:utility": "General shell utility functions",
+  "greymd/docker-zsh-completion": "Docker and Docker Compose CLI completion",
+  "ohmyzsh/ohmyzsh path:plugins/ansible": "Ansible completion and aliases",
+  "ohmyzsh/ohmyzsh path:plugins/command-not-found": "Suggests packages when a command is not found",
+  "ohmyzsh/ohmyzsh path:plugins/extract": "Universal archive extraction for any format",
+  "ohmyzsh/ohmyzsh path:plugins/git": "Git aliases and completion",
+  "ohmyzsh/ohmyzsh path:plugins/gitfast": "Faster git completion via optimised _git",
+  "ohmyzsh/ohmyzsh path:plugins/history": "History search aliases (h, hs, hsi)",
+  "ohmyzsh/ohmyzsh path:plugins/ssh-agent": "Auto-starts ssh-agent and loads keys on shell start",
+  "ohmyzsh/ohmyzsh path:plugins/sudo": "Double-tap Esc to prepend sudo to the current command",
+  "ohmyzsh/ohmyzsh path:plugins/systemd": "systemctl shorthand aliases (sc-status, sc-restart, etc.)",
+  "ohmyzsh/ohmyzsh path:plugins/ubuntu": "apt/dpkg aliases for Ubuntu/Debian machines",
+  "romkatv/powerlevel10k": "Prompt theme with instant prompt support",
+  "sobolevn/wakatime-zsh-plugin": "WakaTime time tracking for the shell",
+  "zsh-users/zsh-autosuggestions": "Fish-style inline command suggestions",
+  "zsh-users/zsh-completions": "Extended completion definitions not yet in zsh",
+  "zsh-users/zsh-syntax-highlighting": "Real-time command syntax highlighting"
+}
