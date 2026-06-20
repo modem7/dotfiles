@@ -93,7 +93,7 @@ Managed via antidote static mode. The bundle is only regenerated when `.zsh_plug
 | `dcup` *(commented)* | `docker compose up -d --remove-orphans` (uses `$DC_PROJECT_DIR`) |
 | `dcdown` *(commented)* | `docker compose down` |
 | `dcpull` *(commented)* | `docker compose pull` |
-| `dive` *(commented)* | Run [dive](https://github.com/wagoodman/dive) via Docker |
+| `dive` | Run [dive](https://github.com/wagoodman/dive) via Docker |
 | `bwu` *(commented)* | Unlock Bitwarden and sync |
 
 ## Requirements
