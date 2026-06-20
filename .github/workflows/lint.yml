@@ -16,10 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install zshellcheck
+        run: curl -fsSL https://raw.githubusercontent.com/afadesigns/zshellcheck/main/install.sh | bash
+
       - name: zshellcheck
-        uses: afadesigns/zshellcheck@v1.0.17
-        with:
-          args: -format sarif -severity warning .zshrc .zshenv > zshellcheck.sarif
+        run: zshellcheck -format sarif -severity warning .zshrc .zshenv > zshellcheck.sarif
 
       - name: Upload SARIF
         uses: github/codeql-action/upload-sarif@v4
