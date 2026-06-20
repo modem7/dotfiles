@@ -1,32 +1,40 @@
-if [ -e $HOME/.zshenv ]
-then
-    echo "Installing Wakatime"
-    python3 -c "$(wget -q -O - https://raw.githubusercontent.com/wakatime/vim-wakatime/master/scripts/install_cli.py)"
-    sed -i "/sobolevn/ s/# *//" ~/.zshrc
+# One-shot bootstrap — runs once on first zsh login, then self-disables.
+# Usage: drop this file as ~/.zshenv on a new machine (after installing zsh).
+# It will fetch .zshrc, .zsh_plugins.txt, and .p10k.zsh from your dotfiles
+# repo, install WakaTime, merge bash history, then leave a sentinel so it
+# never runs again.
+#
+# NOTE: WakaTime API key is NOT included here — set it manually in ~/.wakatime.cfg
+# after first login.
 
-    echo "Installing ZSH Dependencies"
-    # zoxide
-    echo "Installing zoxide"
-    curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+_BOOTSTRAP_SENTINEL="$HOME/.zshenv_bootstrapped"
 
-    # fzf
-    echo "Installing fzf"
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-    ~/.fzf/install --all
+if [[ ! -f "$_BOOTSTRAP_SENTINEL" ]]; then
+  echo "=== Bootstrap: starting zsh setup ==="
 
-    # eza
-    echo "Installing eza"
-    sudo apt-get install -y ca-certificates curl gnupg
-    sudo mkdir -p /etc/apt/keyrings
-    wget -qO- https://raw.githubusercontent.com/eza-community/eza/main/deb.asc | sudo gpg --dearmor -o /etc/apt/keyrings/gierens.gpg
-    echo "deb [signed-by=/etc/apt/keyrings/gierens.gpg] http://deb.gierens.de stable main" | sudo tee /etc/apt/sources.list.d/gierens.list
-    sudo chmod 644 /etc/apt/keyrings/gierens.gpg /etc/apt/sources.list.d/gierens.list
-    sudo apt update && sudo apt install -y eza
-    
-    echo "Merging Bash history with ZSH history"
-    cd ~
+  # 1. Fetch dotfiles
+  echo ">>> Fetching dotfiles..."
+  local _dotfiles_base="https://raw.githubusercontent.com/modem7/dotfiles/master"
+  wget -q -O ~/.zshrc            "${_dotfiles_base}/.zshrc"
+  wget -q -O ~/.zsh_plugins.txt  "${_dotfiles_base}/.zsh_plugins.txt"
+  wget -q -O ~/.p10k.zsh         "${_dotfiles_base}/.p10k.zsh"
+
+  # 2. Install WakaTime CLI
+  echo ">>> Installing WakaTime..."
+  python3 -c "$(wget -q -O - https://raw.githubusercontent.com/wakatime/vim-wakatime/master/scripts/install_cli.py)"
+
+  # 3. Enable WakaTime plugin in .zshrc (uncomment the sobolevn line)
+  sed -i 's/^# sobolevn\/wakatime-zsh-plugin/sobolevn\/wakatime-zsh-plugin/' ~/.zsh_plugins.txt
+
+  # 4. Merge bash history into zsh history
+  echo ">>> Merging bash history..."
+  if [[ -f ~/.bash_history ]]; then
     sort ~/.bash_history | uniq | awk '{print ": :0:;"$0}' >> ~/.zsh_history
+  fi
 
-    echo "Removing .zshenv file"
-    rm $HOME/.zshenv
+  # 5. Mark bootstrap as complete
+  touch "$_BOOTSTRAP_SENTINEL"
+  echo "=== Bootstrap complete! ==="
+  echo "    Remember to add your WakaTime API key to ~/.wakatime.cfg"
+  echo "    Log off and back on (or run: exec zsh) to load your new config."
 fi

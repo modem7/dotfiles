@@ -1,0 +1,26 @@
+# Oh-My-Zsh core
+getantidote/use-omz
+ohmyzsh/ohmyzsh path:lib
+
+# Theme
+romkatv/powerlevel10k
+
+# Plugins
+greymd/docker-zsh-completion
+ohmyzsh/ohmyzsh path:plugins/ansible
+ohmyzsh/ohmyzsh path:plugins/command-not-found
+ohmyzsh/ohmyzsh path:plugins/extract
+ohmyzsh/ohmyzsh path:plugins/git
+ohmyzsh/ohmyzsh path:plugins/gitfast
+ohmyzsh/ohmyzsh path:plugins/history
+ohmyzsh/ohmyzsh path:plugins/sudo
+ohmyzsh/ohmyzsh path:plugins/systemd
+ohmyzsh/ohmyzsh path:plugins/ubuntu
+# sobolevn/wakatime-zsh-plugin
+MichaelAquilina/zsh-you-should-use
+belak/zsh-utils path:completion
+belak/zsh-utils path:prompt
+belak/zsh-utils path:utility
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-completions
+zsh-users/zsh-syntax-highlighting
