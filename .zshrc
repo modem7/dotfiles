@@ -50,8 +50,8 @@ setopt SHARE_HISTORY          # Share history across sessions (implies increment
 unsetopt HIST_BEEP            # Don't beep when hitting the end of history.
 
 # Shell behaviour
-setopt AUTO_CD                # cd by typing a directory name without cd.
-setopt CORRECT                # Suggest corrections for mistyped commands.
+setopt AUTO_CD                # cd by typing a directory name without cd. # noka: ZC1787
+setopt CORRECT                # Suggest corrections for mistyped commands. # noka: ZC1789
 
 # Completion styling
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -74,7 +74,7 @@ fi
 if command -v pipx &>/dev/null; then
   autoload -U bashcompinit
   bashcompinit
-  eval "$(register-python-argcomplete pipx)"
+  eval "$(register-python-argcomplete pipx)" # noka: ZC1046
 fi
 
 # Syntax highlighting colours
