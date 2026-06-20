@@ -30,10 +30,3 @@ jobs:
         if: always()
         with:
           sarif_file: zshellcheck.sarif
-
-      - name: shellcheck
-        uses: ludeeus/action-shellcheck@master
-        with:
-          scandir: '.'
-          severity: warning
-          additional_files: '.zshrc .zshenv'
