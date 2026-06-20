@@ -130,7 +130,7 @@ alias dcprune="docker system prune -af --volumes"
 # alias dcup="docker compose --project-directory ${DC_PROJECT_DIR} up -d --remove-orphans"
 # alias dcdown="docker compose --project-directory ${DC_PROJECT_DIR} down"
 # alias dcpull="docker compose --project-directory ${DC_PROJECT_DIR} pull"
-# alias dive="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive"
+alias dive="docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive"
 # alias bwu='export BW_SESSION="$(bw unlock --raw)" && bw sync -f'
 # alias gpull="(cd /home/modem7/Docker && git pull)"
 
