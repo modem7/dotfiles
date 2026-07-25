@@ -21,19 +21,62 @@ if [[ ! -f "$_BOOTSTRAP_SENTINEL" ]]; then
     fi
   done
   if [[ ${#_missing[@]} -gt 0 ]]; then
-    echo "ERROR: Missing required packages: ${_missing[*]}"
-    echo "       Please install them and try again:"
-    echo "       sudo apt-get install -y ${_missing[*]}"
-    return 1
+    echo ">>> Missing required packages: ${_missing[*]}"
+    if command -v apt-get &>/dev/null; then
+      if read -q "?>>> Install them now with sudo apt-get? [y/N] "; then
+        echo
+        if sudo apt-get update && sudo apt-get install -y "${_missing[@]}"; then
+          echo ">>> Installed missing packages."
+        else
+          echo "ERROR: Failed to install missing packages automatically."
+          echo "       Install manually: sudo apt-get install -y ${_missing[*]}"
+          return 1
+        fi
+      else
+        echo
+        echo "ERROR: Missing required packages: ${_missing[*]}"
+        echo "       Install manually: sudo apt-get install -y ${_missing[*]}"
+        return 1
+      fi
+    else
+      echo "ERROR: Missing required packages: ${_missing[*]}"
+      echo "       Please install them and try again:"
+      echo "       sudo apt-get install -y ${_missing[*]}"
+      return 1
+    fi
   fi
   echo ">>> Prerequisites OK"
 
   # 1. Fetch dotfiles
   echo ">>> Fetching dotfiles..."
   _dotfiles_base="https://raw.githubusercontent.com/modem7/dotfiles/master"
-  wget -q -O ~/.zshrc            "${_dotfiles_base}/.zshrc"
-  wget -q -O ~/.zsh_plugins.txt  "${_dotfiles_base}/.zsh_plugins.txt"
-  wget -q -O ~/.p10k.zsh         "${_dotfiles_base}/.p10k.zsh"
+
+  _dotfiles_fetch() {
+    if ! wget -q -O "$1" "$2"; then
+      echo "ERROR: Failed to download ${2##*/} — aborting bootstrap"
+      rm -f "$1"
+      return 1
+    fi
+    if [[ ! -s "$1" ]]; then
+      echo "ERROR: ${2##*/} downloaded empty — aborting bootstrap"
+      rm -f "$1"
+      return 1
+    fi
+  }
+
+  if ! _dotfiles_fetch ~/.zshrc "${_dotfiles_base}/.zshrc"; then
+    unset -f _dotfiles_fetch
+    return 1
+  fi
+  if ! _dotfiles_fetch ~/.zsh_plugins.txt "${_dotfiles_base}/.zsh_plugins.txt"; then
+    unset -f _dotfiles_fetch
+    return 1
+  fi
+  if ! _dotfiles_fetch ~/.p10k.zsh "${_dotfiles_base}/.p10k.zsh"; then
+    unset -f _dotfiles_fetch
+    return 1
+  fi
+  unset -f _dotfiles_fetch
 
   # 2. Install WakaTime CLI
   echo ">>> Installing WakaTime..."

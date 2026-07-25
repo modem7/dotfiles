@@ -34,11 +34,11 @@ On a fresh machine:
 wget -q -O ~/.zshenv https://raw.githubusercontent.com/modem7/dotfiles/master/.zshenv && zsh
 ```
 
-> No need to install zsh first — the bootstrap will check for it and tell you exactly what's missing.
+> No need to install zsh first — the bootstrap will check for it and offer to install what's missing.
 
 The bootstrap will:
-1. Verify all prerequisites are installed (`zsh`, `git`, `python3`, `wget`)
-2. Fetch `.zshrc`, `.zsh_plugins.txt`, and `.p10k.zsh` from this repo
+1. Verify all prerequisites are installed (`zsh`, `git`, `python3`, `wget`) — on Debian/Ubuntu it offers to `apt-get install` anything missing (with confirmation); elsewhere it prints the manual command
+2. Fetch `.zshrc`, `.zsh_plugins.txt`, and `.p10k.zsh` from this repo, aborting cleanly (no sentinel left behind, safe to retry) if any download fails or comes back empty
 3. Install the WakaTime CLI
 4. Merge any existing bash history into zsh history
 5. Set zsh as your default shell via `chsh`
