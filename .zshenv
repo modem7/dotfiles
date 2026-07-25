@@ -25,6 +25,7 @@ if [[ ! -f "$_BOOTSTRAP_SENTINEL" ]]; then
     if command -v apt-get &>/dev/null; then
       if read -q "?>>> Install them now with sudo apt-get? [y/N] "; then
         echo
+        # noka: ZC1047 — intentional interactive sudo for this opt-in prereq install prompt
         if sudo apt-get update && sudo apt-get install -y "${_missing[@]}"; then
           echo ">>> Installed missing packages."
         else
@@ -52,6 +53,10 @@ if [[ ! -f "$_BOOTSTRAP_SENTINEL" ]]; then
   _dotfiles_base="https://raw.githubusercontent.com/modem7/dotfiles/master"
 
   _dotfiles_fetch() {
+    if [[ -z "$1" || -z "$2" ]]; then
+      echo "ERROR: _dotfiles_fetch called with a missing argument — aborting bootstrap"
+      return 1
+    fi
     if ! wget -q -O "$1" "$2"; then
       echo "ERROR: Failed to download ${2##*/} — aborting bootstrap"
       rm -f "$1"
