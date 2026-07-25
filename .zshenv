@@ -59,12 +59,12 @@ if [[ ! -f "$_BOOTSTRAP_SENTINEL" ]]; then
     fi
     if ! wget -q -O "$1" "$2"; then
       echo "ERROR: Failed to download ${2##*/} — aborting bootstrap"
-      rm -f "$1"
+      rm -f "$1"  # noka: ZC1059 — guarded non-empty by the check at the top of this function
       return 1
     fi
     if [[ ! -s "$1" ]]; then
       echo "ERROR: ${2##*/} downloaded empty — aborting bootstrap"
-      rm -f "$1"
+      rm -f "$1"  # noka: ZC1059 — guarded non-empty by the check at the top of this function
       return 1
     fi
   }
